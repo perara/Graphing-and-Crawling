@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+
+
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            font: 11px courier;
+            overflow: hidden;
+        }
+        #graph-info {
+            position: absolute;
+            top: 0px;
+            left: 40%;
+            margin: 10px;
+            background-color: #ffffe0;
+            color: #333;
+            padding: 5px 10px;
+        }
+        #options {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <div style="position: absolute; bottom: 0;">
+        Rotate: Left Mouse Button and Move<br />
+        Zoom: Press Key S + Left Mouse Button and Move<br />
+        Drag: Press Key D + Left Mouse Button and Move
+    </div>
+
+
+
+
+</body>
+
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="graph.min.js"></script>
+<script src="FlyControls.js"></script>
+<script src="WebGraph.js"></script>
+<script src="NodeGraph.js"></script>
+<script>
+
+    var get_data = function(){
+        return $.ajax({
+            type: "GET",
+            url: "nodes.json",
+            dataType: "JSON",
+        });
+    };
+
+
+    $.when(get_data()).done(function(data){
+
+        drawing = new Drawing.NodeGraph({
+            layout: '3d',
+            nodes: data.nodes,
+            edges: data.edges,
+            selection: true,
+            showStats: true,
+            showInfo: true
+        });
+
+
+    });
+
+
+    /*var get_url_map = function(){
+        return $.ajax({
+            type: "GET",
+            url: "url_map.json",
+            dataType: "JSON",
+        });
+    };
+
+    var get_url_rel = function(){
+        return $.ajax({
+            type: "GET",
+            url: "url_relations.json",
+            dataType: "JSON"
+        });
+    };
+
+
+    $.when(get_url_map(), get_url_rel()).done(function(url_map, url_rel){
+
+        url_map = url_map[0];
+        url_rel = url_rel[0];
+
+        drawing = new Drawing.WebGraph(
+                {
+                    layout: '3d',
+                    url_map: url_map,
+                    url_rel: url_rel,
+                    selection: true,
+                    showStats: true,
+                    showInfo: true
+                });
+
+
+
+
+    });*/
+
+
+
+
+</script>
+
+</body>
+</html>
